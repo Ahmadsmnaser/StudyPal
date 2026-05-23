@@ -12,7 +12,13 @@ def get_chapter_list(selected_subject):
         chapters_list = os.listdir(chapters_dir)
         # remove ".txt / .pdf / ..."  from each string in the list
         chapters_list = [x[:-4] for x in chapters_list]
-        chapters_list.sort(key=lambda x: int(x.split('.')[0]))
+        def sort_key(x):
+            try:
+                return (0, int(x.split('.')[0]))
+            except ValueError:
+                return (1, x)
+                
+        chapters_list.sort(key=sort_key)
         return chapters_list
 
         
